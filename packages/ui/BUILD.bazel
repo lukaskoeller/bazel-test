@@ -1,0 +1,25 @@
+load("@npm//vite:index.bzl", "vite")
+load("//:vite.bzl", "vite_project")
+
+# Run Vite from the source directory
+vite(
+    name = "dev",
+    # args = [
+    #     "--node_options=--require=./$(rootpath :chdir)",
+    # ],
+    # data = [":chdir"],
+)
+
+vite_project(
+    name = "dist",
+    srcs = glob(["src/*"]) + [
+        "index.html",
+        "tsconfig.json",
+        "vite.config.ts",
+    ],
+    deps = [
+        "@npm//@vitejs/plugin-react-refresh",
+        "@npm//react",
+        "@npm//react-dom",
+    ],
+)
